@@ -10,8 +10,12 @@
   "author": "Jakeliny Gracielly",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "^4.13.0",
     "cors": "^2.8.5",
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "mysql2": "^3.2.4",
+    "prisma": "^4.13.0",
+    "prisma-client": "^0.0.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.13"

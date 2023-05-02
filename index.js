@@ -38,13 +38,17 @@ const prisma = new PrismaClient();
 // });
 
 app.post("/create-user", async (req, res) => {
-  const { name, email, senha } = req.body;
+  const { name, email, senha, process, hour, day, shift } = req.body;
 
   const resp = await prisma.usuarios.create({
     data: {
       name,
       email,
       senha,
+      process:String(process),
+      hour: String(hour),
+      day: String(day),
+      shift: String(shift),
     },
   });
   console.log(resp);

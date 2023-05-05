@@ -37,6 +37,11 @@ const prisma = new PrismaClient();
 //   console.log("Resposta do post:", resp);
 // });
 
+app.get("/list-users", async (req, res) => {
+  const resp = await prisma.usuarios.findMany({});
+  console.log(resp);
+  return res.status(200).json(resp);
+});
 app.post("/create-user", async (req, res) => {
   const { name, email, senha, process, hour, day, shift } = req.body;
 
@@ -45,7 +50,7 @@ app.post("/create-user", async (req, res) => {
       name,
       email,
       senha,
-      process:String(process),
+      process: String(process),
       hour: String(hour),
       day: String(day),
       shift: String(shift),
@@ -55,7 +60,7 @@ app.post("/create-user", async (req, res) => {
   return res.status(200).json(resp);
 });
 app.patch("/update-user", async (req, res) => {
-  const { id, name, email, senha } = req.body;
+  const { id, name, email, senha, shift, day, hour, process } = req.body;
 
   const resp = await prisma.usuarios.update({
     where: { id: parseInt(id) },
@@ -63,6 +68,10 @@ app.patch("/update-user", async (req, res) => {
       name,
       email,
       senha,
+      shift,
+      day,
+      hour,
+      process,
     },
   });
   console.log(resp);

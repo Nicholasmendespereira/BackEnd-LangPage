@@ -48,8 +48,8 @@ app.post("/create-user", async (req, res) => {
   const resp = await prisma.usuarios.create({
     data: {
       name,
-      email,
-      senha,
+      email: String(email),
+      senha: String(123456),
       process: String(process),
       hour: String(hour),
       day: String(day),
@@ -83,6 +83,6 @@ app.delete("/delete-user", async (req, res) => {
   const resp = await prisma.usuarios.delete({
     where: { id: parseInt(id) },
   });
-  console.log(resp);
+  console.log("Agendamento deletado com sucesso:", resp );
   return res.status(200).json(resp);
 });

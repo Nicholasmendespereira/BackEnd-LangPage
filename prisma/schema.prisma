@@ -18,4 +18,5 @@ model usuarios {
   hour       String?  @db.VarChar(10)
   day        String?  @db.VarChar(10)
   shift      String?  @db.VarChar(10)
+  logged     Boolean? @default(false)
 }

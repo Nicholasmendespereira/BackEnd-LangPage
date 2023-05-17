@@ -83,6 +83,24 @@ app.delete("/delete-user", async (req, res) => {
   const resp = await prisma.usuarios.delete({
     where: { id: parseInt(id) },
   });
-  console.log("Agendamento deletado com sucesso:", resp );
+  console.log("Agendamento deletado com sucesso:", resp);
   return res.status(200).json(resp);
+});
+
+/////////////////////////////////////////////////////////////////////
+//VERIFICAÇÃO DE LOGIN
+app.post("/login", async (req, res) => {
+  const { name, senha } = req.body;
+  const findUser = await prisma.usuarios.findFirst({
+    where: { name: String(name) },
+  });
+  if (!findUser) return res.status(404).send("ERROR: Usuário sem cadastro");
+  const Logged = await prisma.usuarios.update({
+    where: { id: parseInt(findUser.id) },
+    data: {
+      logged: true,
+    },
+  });
+  Logged;
+  return res.status(200).json(findUser);
 });

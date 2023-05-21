@@ -104,3 +104,12 @@ app.post("/login", async (req, res) => {
   Logged;
   return res.status(200).json(findUser);
 });
+
+app.get("/profile", async (req, res) => {
+  const { id } = req.body;
+  const listSchedulings = await prisma.usuarios.findFirst({
+    where: { deleted_at: null, id: parseInt(id) },
+  });
+  console.log({ listSchedulings });
+  res.status(200).json({ listSchedulings });
+});

@@ -105,6 +105,23 @@ app.post("/login", async (req, res) => {
   return res.status(200).json(findUser);
 });
 
+app.post("/reset-password", async (req, res) => {
+  const { name, oldsenha, newsenha } = req.body;
+  const findUser = await prisma.usuarios.findFirst({
+    where: { name: String(name), senha: String(oldsenha) },
+  });
+  if (!findUser) return res.status(404).send("ERROR: Usuário sem cadastro");
+  const resetPassword = await prisma.usuarios.update({
+    where: { id: parseInt(findUser?.id) },
+    data: {
+      senha: String(newsenha),
+    },
+  });
+  resetPassword;
+  console.log(findUser);
+  res.status(200).send({ sucess: true });
+});
+
 app.get("/profile", async (req, res) => {
   const { id } = req.body;
   const listSchedulings = await prisma.usuarios.findFirst({

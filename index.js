@@ -92,7 +92,7 @@ app.delete("/delete-user", async (req, res) => {
 app.post("/login", async (req, res) => {
   const { name, senha } = req.body;
   const findUser = await prisma.usuarios.findFirst({
-    where: { name: String(name) },
+    where: { name: String(name), senha: String(senha) },
   });
   if (!findUser) return res.status(404).send("ERROR: Usuário sem cadastro");
   const Logged = await prisma.usuarios.update({
